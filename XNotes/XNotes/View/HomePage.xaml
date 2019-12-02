@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="XNotes.View.HomePage"
+             Title="XNotes">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label" x:Key="boldLabel">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+            <Style TargetType="Label" x:Key="normalLabel">
+                <Setter Property="FontAttributes" Value="normal"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+            <Style TargetType="Label" x:Key="blueLabel">
+                <Setter Property="FontAttributes" Value="normal"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextColor" Value="#00739a"/>
+            </Style>
+            <Style TargetType="Button" x:Key="editBtn">
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="TextColor" Value="#00739a"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <AbsoluteLayout>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="0" Padding="5, 0, 5, 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Entry Grid.Column="0" Text="{Binding SearchString}" Placeholder="search for item data or #tag" Margin="0, 0, 10, 0" FontSize="20"/>
+                </Grid>
+                <ListView HasUnevenRows="True" VerticalOptions="FillAndExpand" ItemsSource="{Binding notes}" x:Name="notesList" Grid.Row="1" SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem  Command="{Binding BindingContext.DeleteItemCommand, Source={x:Reference Name=notesList}}"
+                                              CommandParameter="{Binding .}"
+                                        Text="Delete"/>
+
+                                </ViewCell.ContextActions>
+                                <StackLayout HorizontalOptions="FillAndExpand">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="8*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Style="{StaticResource boldLabel}" Text="{Binding title}" VerticalOptions="Center" HorizontalOptions="Start" MaxLines="1" LineBreakMode="TailTruncation"/>
+                                        <Button  Style="{StaticResource editBtn}" Grid.Column="1" Text="Edit" 
+                                                Command="{Binding BindingContext.ViewCellWasTapped, Source={x:Reference Name=notesList}}" CommandParameter="{Binding .}" 
+                                                VerticalOptions="Center" HorizontalOptions="End"/>
+                                    </Grid>
+                                     <Label LineBreakMode="TailTruncation" MaxLines="5" Style="{StaticResource normalLabel}" Text="{Binding message}"/>
+                                     <Label LineBreakMode="TailTruncation" MaxLines="1" Style="{StaticResource blueLabel}" Text="{Binding tagLine}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </Grid>
+            <ImageButton
+                Clicked="ImageButton_Clicked"
+                BackgroundColor="Transparent"
+                CornerRadius="35"
+                HeightRequest="70"
+                WidthRequest="70"
+                Source="pen.png"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                AbsoluteLayout.LayoutBounds=".95,.98,70,70">
+
+            </ImageButton>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:XNotes"
+             mc:Ignorable="d"
+             x:Class="XNotes.View.AddNewPage"
+             Title="Add new note">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ReverseBoolConverter x:Key="inverseBool"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Entry VerticalOptions="Center" PlaceholderColor="#232323" Grid.Row="0" Placeholder="Title" Text="{Binding Title}"/>
+            <Editor Grid.Row="1" Text="{Binding Message}" IsVisible="{Binding IsGroup, Converter={StaticResource Key=inverseBool}}" MaxLength="40000" HeightRequest="250" Placeholder="Message"/>
+           
+        </Grid>
+        
+    </ContentPage.Content>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" Command="{Binding SaveItemCommand}"/>
+    </ContentPage.ToolbarItems>
+</ContentPage>

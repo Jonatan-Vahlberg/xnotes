@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "XNotes": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}
